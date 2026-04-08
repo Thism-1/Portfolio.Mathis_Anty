@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mathis Anty – Ingénieur Mécanique</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-bg:           #F5F4F0;
+    --color-surface:      #FFFFFF;
+    --color-text:         #1A1A1A;
+    --color-muted:        #6B6B6B;
+    --color-accent:       #2B5EA7;
+    --color-accent-light: #EBF1FB;
+    --color-border:       #E0DED8;
+    --color-tag:          #D9E4F5;
+    --font-display:       'Syne', sans-serif;
+    --font-body:          'DM Sans', sans-serif;
+    --radius-sm:  6px;
+    --radius-md:  12px;
+    --radius-lg:  20px;
+    --shadow:      0 4px 24px rgba(0,0,0,0.07);
+    --shadow-hover:0 8px 40px rgba(0,0,0,0.13);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--color-bg); color: var(--color-text); font-size: 15px; line-height: 1.6; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 60px; background: rgba(197, 211, 224, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--color-border); }
+  .nav-logo { font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: 0.04em; color: var(--color-text); text-decoration: none; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 500; color: var(--color-muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--color-accent); }
+
+  section { padding: 96px 48px; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 10px; }
+  h2.section-title { font-family: var(--font-display); font-size: clamp(28px,4vw,38px); font-weight: 700; line-height: 1.2; margin-bottom: 48px; }
+
+  #hero { padding-top: 140px; display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: center; min-height: 100vh; max-width: 1100px; margin: 0 auto; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); background: var(--color-accent-light); padding: 6px 14px; border-radius: 100px; margin-bottom: 24px; }
+  .hero-eyebrow::before { content: "●"; font-size: 8px; }
+  h1.hero-name { font-family: var(--font-display); font-size: clamp(44px,7vw,72px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h1.hero-name em { color: var(--color-accent); font-style: normal; }
+  .hero-subtitle { font-family: var(--font-display); font-size: clamp(18px,2.5vw,24px); font-weight: 600; color: var(--color-muted); margin-bottom: 28px; }
+  .hero-bio { font-size: 15px; color: var(--color-muted); max-width: 520px; line-height: 1.75; margin-bottom: 36px; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 36px; }
+  .hero-meta-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--color-muted); }
+  .hero-meta-item svg { color: var(--color-accent); flex-shrink: 0; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary { background: var(--color-accent); color: #fff; padding: 12px 28px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: #1e4a8a; transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: var(--color-text); padding: 12px 28px; border-radius: var(--radius-sm); border: 1.5px solid var(--color-border); font-size: 14px; font-weight: 500; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+  .btn-secondary:hover { border-color: var(--color-accent); background: var(--color-accent-light); }
+  .hero-photo-wrap { position: relative; }
+  .hero-photo { width: 100%; aspect-ratio: 3/4; border-radius: var(--radius-lg); background: var(--color-border); overflow: hidden; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-photo-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--color-muted); font-size: 13px; text-align: center; background: linear-gradient(135deg,#e8e6e0,#d4d2cc); padding: 20px; }
+  .hero-photo-placeholder svg { opacity: 0.4; }
+  .hero-badge { position: absolute; bottom: -16px; left: -16px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 14px 18px; box-shadow: var(--shadow); font-size: 13px; }
+  .hero-badge strong { display: block; font-family: var(--font-display); font-size: 18px; color: var(--color-accent); }
+  .skills-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--color-border); }
+  .skill-tag { background: var(--color-tag); color: var(--color-accent); font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 100px; }
+
+  .divider { border: none; border-top: 1px solid var(--color-border); max-width: 1100px; margin: 0 auto; }
+
+  #experiences { padding-top: 80px; }
+  .exp-tabs { display: flex; margin-bottom: 48px; border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); overflow: hidden; width: fit-content; }
+  .exp-tab { padding: 10px 28px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; border: none; background: transparent; cursor: pointer; color: var(--color-muted); transition: background 0.2s, color 0.2s; font-family: var(--font-body); }
+  .exp-tab.active { background: var(--color-accent); color: #fff; }
+  .exp-layout { display: grid; grid-template-columns: 280px 1fr; border: 1.5px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; background: var(--color-surface); min-height: 420px; }
+  .exp-list { border-right: 1.5px solid var(--color-border); }
+  .exp-item { padding: 18px 22px; border-bottom: 1px solid var(--color-border); cursor: pointer; transition: background 0.15s; position: relative; }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-item:hover { background: var(--color-accent-light); }
+  .exp-item.active { background: var(--color-accent-light); }
+  .exp-item.active::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--color-accent); }
+  .exp-item-year { font-size: 11px; font-weight: 600; color: var(--color-accent); letter-spacing: 0.06em; margin-bottom: 4px; }
+  .exp-item-title { font-size: 13px; font-weight: 600; color: var(--color-text); line-height: 1.3; }
+  .exp-item-company { font-size: 12px; color: var(--color-muted); margin-top: 2px; }
+  .exp-detail { padding: 36px 40px; display: none; }
+  .exp-detail.active { display: block; }
+  .exp-detail-year { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 6px; }
+  .exp-detail-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .exp-detail-company { font-size: 14px; color: var(--color-muted); font-style: italic; margin-bottom: 16px; }
+  .exp-detail-missions { list-style: none; margin-top: 16px; }
+  .exp-detail-missions li { padding: 6px 0 6px 20px; position: relative; font-size: 14px; color: var(--color-text); border-bottom: 1px solid var(--color-border); }
+  .exp-detail-missions li:last-child { border-bottom: none; }
+  .exp-detail-missions li::before { content:'→'; position:absolute; left:0; color:var(--color-accent); font-size:12px; }
+
+  #projects { padding-top: 80px; }
+  .projects-scroll { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 16px; scroll-snap-type: x mandatory; cursor: grab; }
+  .projects-scroll::-webkit-scrollbar { height: 4px; }
+  .projects-scroll::-webkit-scrollbar-track { background: var(--color-border); border-radius: 2px; }
+  .projects-scroll::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 2px; }
+  .project-card { flex-shrink: 0; width: 300px; scroll-snap-align: start; background: var(--color-surface); border: 1.5px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; }
+  .project-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+  .project-thumb { width: 100%; height: 200px; background: linear-gradient(135deg,#c8d8f0,#e8edf5); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .project-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .project-thumb-placeholder { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--color-muted); font-size: 12px; }
+  .project-thumb-placeholder svg { opacity: 0.5; }
+  .project-card-body { padding: 20px; }
+  .project-card-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 8px; }
+  .project-card-title { font-family: var(--font-display); font-size: 17px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
+  .project-card-desc { font-size: 13px; color: var(--color-muted); line-height: 1.6; }
+  .project-card-footer { padding: 14px 20px; border-top: 1px solid var(--color-border); font-size: 12px; font-weight: 600; color: var(--color-accent); }
+
+  .modal-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(20,20,20,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal { background: var(--color-surface); border-radius: var(--radius-lg); max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; transform: translateY(20px); transition: transform 0.25s; }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-header { position: sticky; top: 0; background: var(--color-surface); border-bottom: 1px solid var(--color-border); padding: 20px 28px; display: flex; align-items: center; justify-content: space-between; z-index: 1; }
+  .modal-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; }
+  .modal-close { background: none; border: none; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--color-muted); transition: background 0.15s; }
+  .modal-close:hover { background: var(--color-accent-light); }
+  .modal-body { padding: 28px; }
+  .modal-section { margin-bottom: 20px; }
+  .modal-section h4 { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--color-accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .modal-section p { font-size: 14px; color: var(--color-muted); line-height: 1.75; }
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .modal-tag { background: var(--color-tag); color: var(--color-accent); font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 100px; }
+
+  .gallery-wrap { margin-bottom: 24px; }
+  .gallery-main { width: 100%; height: 480px; border-radius: var(--radius-md); overflow: hidden; background: var(--color-accent-light); position: relative; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
+  .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery-placeholder { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--color-muted); font-size: 13px; }
+  .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.92); border: none; cursor: pointer; width: 38px; height: 38px; border-radius: 50%; font-size: 22px; color: var(--color-text); box-shadow: var(--shadow); transition: background 0.15s; z-index: 2; display: flex; align-items: center; justify-content: center; line-height: 1; }
+  .gallery-nav:hover { background: #fff; }
+  .gallery-nav.prev { left: 10px; }
+  .gallery-nav.next { right: 10px; }
+  .gallery-counter { position: absolute; bottom: 10px; right: 12px; background: rgba(0,0,0,0.45); color: #fff; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 100px; }
+  .gallery-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+  .gallery-thumbs::-webkit-scrollbar { height: 3px; }
+  .gallery-thumbs::-webkit-scrollbar-thumb { background: var(--color-accent); border-radius: 2px; }
+  .gallery-thumb { flex-shrink: 0; width: 72px; height: 52px; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid transparent; cursor: pointer; opacity: 0.6; transition: opacity 0.15s, border-color 0.15s; }
+  .gallery-thumb.active { border-color: var(--color-accent); opacity: 1; }
+  .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+  #contact { padding-top: 80px; padding-bottom: 80px; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .contact-info h3 { font-family: var(--font-display); font-size: 22px; font-weight: 700; margin-bottom: 16px; }
+  .contact-info p { font-size: 14px; color: var(--color-muted); line-height: 1.8; margin-bottom: 28px; }
+  .contact-links { display: flex; flex-direction: column; gap: 12px; }
+  .contact-link { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--color-text); text-decoration: none; padding: 12px 16px; background: var(--color-surface); border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); transition: border-color 0.15s, background 0.15s; }
+  .contact-link:hover { border-color: var(--color-accent); background: var(--color-accent-light); }
+  .contact-link svg { color: var(--color-accent); flex-shrink: 0; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted); }
+  input, textarea { font-family: var(--font-body); font-size: 14px; padding: 11px 14px; border: 1.5px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-text); outline: none; transition: border-color 0.15s; }
+  input:focus, textarea:focus { border-color: var(--color-accent); }
+  textarea { resize: vertical; min-height: 120px; }
+  .form-submit { background: var(--color-accent); color: #fff; padding: 13px 28px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; border: none; cursor: pointer; font-family: var(--font-body); transition: background 0.2s, transform 0.15s; align-self: flex-start; }
+  .form-submit:hover { background: #1e4a8a; transform: translateY(-1px); }
+
+  footer { border-top: 1px solid var(--color-border); padding: 28px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--color-muted); max-width: 1100px; margin: 0 auto; }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+  .fade-up { animation: fadeUp 0.6s ease both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.22s; }
+  .delay-3 { animation-delay: 0.34s; }
+  .delay-4 { animation-delay: 0.46s; }
+
+  @media (max-width: 800px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding-top: 100px; min-height: auto; gap: 40px; }
+    .hero-photo-wrap { order: -1; max-width: 260px; margin: 0 auto; }
+    section { padding: 60px 20px; }
+    .exp-layout { grid-template-columns: 1fr; }
+    .exp-list { border-right: none; border-bottom: 1.5px solid var(--color-border); }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">MA</a>
+  <ul class="nav-links">
+    <li><a href="#hero">Accueil</a></li>
+    <li><a href="#experiences">Parcours</a></li>
+    <li><a href="#projects">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div>
+    <div class="hero-eyebrow fade-up">Disponible dès maintenant – CDI / CDD</div>
+    <h1 class="hero-name fade-up delay-1">Mathis<br><em>ANTY</em></h1>
+    <p class="hero-subtitle fade-up delay-2">Ingénieur Mécanique <br> Polyvalent et orienté terrain</p>
+    <p class="hero-bio fade-up delay-3">Diplômé ingénieur en mécanique avancée de Sigma Clermont-Ferrand, je suis passionné par la conception de produits et l'innovation. Autonome, créatif, et à l'aise autant sur un logiciel de CAO qu'en atelier, je cherche à rejoindre une équipe ambitieuse et innovante dans le secteur industriel.</p>
+    <div class="hero-meta fade-up delay-3">
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Verneuil-sur-Vienne (87) – Mobile France
+      </div>
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        antymathis@gmail.com
+      </div>
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +33 6 76 31 59 68
+      </div>
+    </div>
+    <div class="hero-cta fade-up delay-4">
+      <a href="#contact" class="btn-primary">Me contacter</a>
+      <a href="#projects" class="btn-secondary">Voir mes projets</a>
+      <a href="ANTY Mathis CV.pdf" target="_blank" class="btn-secondary">Mon CV</a>
+    </div>
+    <div class="skills-strip fade-up delay-4">
+      <span class="skill-tag">Conception</span>
+      <span class="skill-tag">Dimensionnement</span>
+      <span class="skill-tag">Modélisation CAO</span>
+      <span class="skill-tag">Fabrication</span>
+      <span class="skill-tag">Impression 3D</span>
+      <span class="skill-tag">Arduino</span>
+      <span class="skill-tag">Gestion de projet</span>
+      <span class="skill-tag">Anglais C1</span>
+      <span class="skill-tag">Espagnol B2</span>
+
+    </div>
+  </div>
+  <div class="hero-photo-wrap fade-up delay-2">
+    <div class="hero-photo">
+      <img src="ma_photo.jpg" alt="Mathis Anty">
+      <div class="hero-photo-placeholder">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>Votre photo ici</span>
+        <span style="font-size:11px;">Fichier : ma_photo.jpg</span>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <strong>1+</strong>
+      années de projets terrain
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="experiences">
+  <div class="section-label">Mon parcours</div>
+  <h2 class="section-title">Expériences &amp; Formations</h2>
+  <div class="exp-tabs">
+    <button class="exp-tab active" data-tab="pro">Expériences pro</button>
+    <button class="exp-tab" data-tab="edu">Formation</button>
+  </div>
+  <div class="exp-layout" id="tab-pro">
+    <div class="exp-list" id="exp-list-pro"></div>
+    <div id="exp-detail-pro"></div>
+  </div>
+  <div class="exp-layout" id="tab-edu" style="display:none;">
+    <div class="exp-list" id="exp-list-edu"></div>
+    <div id="exp-detail-edu"></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section id="projects">
+  <div class="section-label">Réalisations</div>
+  <h2 class="section-title">Projets &amp; Réalisations</h2>
+  <div class="projects-scroll" id="projects-container"></div>
+</section>
+
+<hr class="divider">
+
+<section id="contact">
+  <div class="section-label">Travaillons ensemble</div>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>N'hésitez pas à m'écrire</h3>
+      <p>Vous cherchez un ingénieur mécanique passionné par le sport outdoor et la conception ? Je suis disponible dès maintenant pour un CDI ou CDD, et ouvert à toute discussion.</p>
+      <div class="contact-links">
+        <a href="mailto:antymathis@gmail.com" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          antymathis@gmail.com
+        </a>
+        <a href="tel:+33676315968" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +33 6 76 31 59 68
+        </a>
+        <a href="https://linkedin.com" target="_blank" class="contact-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn – Mathis Anty
+        </a>
+      </div>
+    </div>
+    <form class="contact-form" id="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">Nom</label>
+          <input type="text" id="fname" placeholder="Votre nom" required>
+        </div>
+        <div class="form-group">
+          <label for="femail">Email</label>
+          <input type="email" id="femail" placeholder="votre@email.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fsubject">Objet</label>
+        <input type="text" id="fsubject" placeholder="Objet du message">
+      </div>
+      <div class="form-group">
+        <label for="fmessage">Message</label>
+        <textarea id="fmessage" placeholder="Votre message..." required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Envoyer le message</button>
+      <p id="form-feedback" style="font-size:13px;color:var(--color-accent);display:none;margin-top:4px;"></p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Mathis Anty – Ingénieur Mécanique</span>
+  <span>Fait avec soin · Modifiable librement</span>
+</footer>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modal-title"></span>
+      <button class="modal-close" id="modal-close">&#x2715;</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   DONNÉES – MODIFIEZ ICI VOTRE CONTENU
+   ================================================================ */
+
+var EXPERIENCES_PRO = [
+  { id:"gracz", periode:"2025", poste:"Ingénieur conception machines spéciales", entreprise:"Atelier GRACZ – Maxence Pereira Métallerie",
+    description:"Mission de conception et fabrication d'une étuve de séchage de bois autonome énergétiquement, dans le cadre d'un stage ingénieur.",
+    missions:["Elaboration du protocole de séchage","Conception et modélisation CAO de l'étuve","Implémentation de la partie automatisation (Arduino/capteurs)","Fabrication et assemblage des éléments internes","Conception de machines spéciales Low-Tech","Prise d'initiative et esprit critique"] },
+  { id:"novaride", periode:"2024", poste:"Ingénieur conception bancs de test", entreprise:"Nova Ride",
+    description:"Stage assistant ingénieur axé sur le développement de bancs d'essai pour composants de vélo haute performance.",
+    missions:["Elaboration du cahier des charges","Gestion de budget","Modélisation de modèles 3D (SolidWorks / Fusion 360)","Fabrication des bancs d'essai","Autonomie complète sur les projets"] },
+  { id:"legrand", periode:"2023", poste:"Opérateur de production", entreprise:"Legrand – Limoges",
+    description:"Emploi d'été en industrie : travail manuel sur une chaîne de production en horaires 3x8.",
+    missions:["Travail manuel sur poste en ligne de production","Rotation 3x8 (matin / après-midi / nuit)","Précision et minutie requises","Compréhension des processus industriels"] },
+  { id:"distmed", periode:"2021", poste:"Livreur installateur", entreprise:"La Distribution Médicale – Limoges",
+    description:"Livraison et installation de matériel médicalisé à domicile.",
+    missions:["Livraison et installation de matériel médical","Contact direct avec les patients","Respect strict des plannings","Sens du service et de l'écoute"] },
+  { id:"mairie", periode:"2020", poste:"Agent d'entretien des espaces verts", entreprise:"Mairie de Verneuil-sur-Vienne",
+    description:"Premier emploi d'été, entretien des espaces verts communaux.",
+    missions:["Entretien des espaces verts municipaux","Travail en équipe","Sens des responsabilités"] }
+];
+
+var EXPERIENCES_EDU = [
+  { id:"ltu", periode:"2024", poste:"Semestre d'échange – Erasmus", entreprise:"Luleå tekniska universitet – Suède",
+    description:"Semestre académique en Suède dans le cadre d'un échange Erasmus, cours entièrement en anglais.",
+    missions:["Processus de développement de produits","Design industriel","Analyse esthétique et sémantique de produits","Traitements et usinage des matériaux","Immersion culturelle et linguistique"] },
+  { id:"sigma", periode:"2022-2025", poste:"Diplôme d'ingénieur – Mécanique avancée", entreprise:"École Sigma Clermont-Ferrand (ex-IFMA)",
+    description:"Formation d'ingénieur généraliste spécialisée en mécanique avancée, avec un cours spécifique sur l'analyse de données pour la performance sportive.",
+    missions:["Conception de produits industriels","Dimensionnement et calcul de structures","Fabrication et procédés industriels","Communication technique","Gestion de projet","Analyse de données pour la performance sportive"] },
+  { id:"prepa", periode:"2021-2022", poste:"Classe préparatoire PTSI / PT", entreprise:"Lycée Turgot – Limoges",
+    description:"Classes préparatoires aux grandes écoles, filière physique-technologie-sciences de l'ingénieur.",
+    missions:["Mathématiques, physique, sciences de l'ingénieur","Rigueur scientifique et méthode","Préparation aux concours grandes écoles"] },
+  { id:"bac", periode:"2020", poste:"Baccalauréat S – SVT", entreprise:"Lycée Auguste Renoir – Limoges",
+    description:"Obtention du baccalauréat scientifique spécialité SVT.",
+    missions:["Spécialité Sciences de la Vie et de la Terre","Options mathématiques et physique-chimie"] }
+];
+
+/* ================================================================
+   PROJETS
+   images[] : 1re image = vignette du carrousel, les suivantes
+   s'affichent dans la galerie de la modale.
+   Nommez vos fichiers exactement comme indiqué ci-dessous
+   et placez-les dans le même dossier que index.html.
+   Supprimez les lignes des photos que vous n'avez pas encore.
+   ================================================================ */
+var PROJECTS = [
+  { id:"bancs", tag:"R&D · Tests", title:"Bancs de test",
+    desc:"Développement et fabrication de bancs d'essai pour pour pièces de vélo haute performance pour l'entreprise Nova Ride.",
+    images:["bancs_01.jpg","bancs_02.jpg","bancs_03.jpg","bancs_04.jpg"],
+    /* bancs_01.jpg = Vue générale du banc d'essai principal    */
+    /* bancs_02.jpg = Détail du système de fixation / serrage   */
+    /* bancs_03.jpg = Modélisation 3D SolidWorks                */
+    /* bancs_04.jpg = Test en cours / composant sur le banc     */
+    detail:"Dans le cadre d'un stage ingénieur, je suis intervenu chez Nova Ride, entreprise spécialisée dans la conception de composants de vélo haute performance. Intégré au bureau d'étude, j'ai eu pour mission de développer 4 bancs de test visant à accélerer le processus de validation porduits de l'entreprise.",
+    context:"Mission en totale autonomie : de la rédaction du cahier des charges à la fabrication, en passant par la modélisation 3D et la gestion du budget alloué.",
+    tools:["SolidWorks","Fusion 360","Gestion de budget","Fabrication","Cahier des charges"] },
+
+  { id:"machine_spéciale", tag:"R&D · machine spéciale", title:"Monte charge",
+    desc:"Développement complet de bancs d'essai pour valider la résistance et les performances de composants de vélo haut de gamme.",
+    images:["machine_spé_01.jpg","machine_spé_02.jpg","machine_spé_03.jpg"],
+    /* machine_spé_01.jpg = Vue générale du banc d'essai principal    */
+    /* machine_spé_02.jpg = Détail du système de fixation / serrage   */
+    /* machine_spé_03.jpg = Modélisation 3D SolidWorks                */
+    detail:"Dans le cadre de mon stage de fin d'étude, j'ai rejoins l'Atelier Gracz",
+    context:"Mission en totale autonomie : de la rédaction du cahier des charges à la fabrication, en passant par la modélisation 3D et la gestion du budget alloué.",
+    tools:["SolidWorks","Fusion 360","Gestion de budget","Fabrication","Cahier des charges"] },
+
+  { id:"etuve", tag:"Conception · Fabrication", title:"Étuve de séchage pour bois",
+    desc:"Conception et fabrication d'une étuve industrielle autonome en énergie pour le séchage de plateaux de bois de grandes dimensions.",
+    images:["etuve_01.jpg","etuve_02.jpg","etuve_03.jpg"],
+    /* etuve_01.jpg = Vue d'ensemble de l'étuve terminée        */
+    /* etuve_02.jpg = Détail intérieur / système de chauffage   */
+    /* etuve_03.jpg = Carte Arduino / partie automatisation     */
+    detail:"Projet réalisé en 2025 chez l'Atelier GRACZ. Objectif : concevoir une étuve capable de sécher des planches de bois de grandes dimensions, en étant autonome énergétiquement (récupération de chaleur + automatisation).",
+    context:"Le projet a démarré d'un besoin terrain identifié par le chef d'atelier. Après une phase d'analyse des besoins, j'ai proposé un protocole de séchage progressif intégrant un système de contrôle de température et d'humidité via Arduino.",
+    tools:["SolidWorks","Arduino","Soudure","Travail du métal","Automatisation"] },
+
+  { id:"Vapor Blasting", tag:"Conception · Réparation", title:"Conception d'une cabine de vapor blasting",
+    desc:"Conception et fabrication d'une machine de vapor blasting pour le nettoyage et l'entretien, entre autre, de carter moteur.",
+    images:["vapor_blast_01.jpg","vapor_blast_02.jpg","vapor_blast_03.jpg"],
+    /* vapor_blast_01.jpg = Vue d'ensemble de l'étuve terminée        */
+    /* vapor_blast_02.jpg = Détail intérieur / système de chauffage   */
+    /* vapor_blast_03.jpg = Carte Arduino / partie automatisation     */
+    detail:"Projet réalisé en 2025 chez l'Atelier GRACZ. Objectif : concevoir une étuve capable de sécher des planches de bois de grandes dimensions, en étant autonome énergétiquement (récupération de chaleur + automatisation).",
+    context:"Le projet a démarré d'un besoin terrain identifié par le chef d'atelier. Après une phase d'analyse des besoins, j'ai proposé un protocole de séchage progressif intégrant un système de contrôle de température et d'humidité via Arduino.",
+    tools:["SolidWorks","Arduino","Soudure","Travail du métal","Automatisation"] },
+
+  { id:"gravel", tag:"Projet personnel en cours ...", title:"Cadre de gravel en acier",
+    desc:"Fabrication artisanale d'un cadre de gravel en acier, de la conception CAO à l'assemblage par soudure.",
+    images:["gravel_01.jpg"],
+    /* gravel_01.jpg = Modèle CAO */
+    detail:"Projet personnel en cours : concevoir et fabriquer intégralement un cadre de vélo gravel en acier Reynolds. Chaque pièce est modélisée en CAO avant d'être débitée, ajustée et soudée à la main.",
+    context:"Ce projet illustre ma polyvalence entre la conception assistée et le travail manuel. Il m'a permis d'approfondir mes connaissances en géométrie de cadre, en métallurgie et en techniques de soudure TIG.",
+    tools:["Fusion 360","Soudure TIG","Découpe métal","Meulage","Conception géométrie vélo"] },
+
+  { id:"Snowscoot", tag:"Projet personnel", title:"Fabrication d'un Snowscoot",
+    desc:"Conception et fabrication d'un Snowscoot sur la base d'un vélo et d'une planche de récupération.",
+    images:["snowscoot_01.jpg","snowscoot_02.jpg","snowscoot_03.jpg"],
+    /* snowscoot_01.jpg = Planche terminée – vue complète      */
+    /* snowscoot_02.jpg = Découpe / mise en forme du noyau     */
+    /* snowscoot_03.jpg = Stratification / pose des fibres     */
+    detail:"Fabrication d'un snowscoot - mélange d'un vélo et d'une planche de snowboard. Projet basé sur des objets de récupération ayant pour but de les assembler afin de les détourner de leur but premier",
+    context:"Fabrication des platines et assemblage des composants.",
+    tools:["Conception","Reemploi"] },
+
+  { id:"jeux", tag:"Design · Artisanat", title:"Jeux et objets en bois",
+    desc:"Conception et fabrication de casse-têtes, luminaires et objets décoratifs en bois, souvent sans colle ni vis.",
+    images:["bois_01.jpg","bois_02.jpg","bois_03.jpg","bois_04.jpg"],
+    /* bois_01.jpg = Vue d'ensemble des objets réalisés         */
+    /* bois_02.jpg = Casse-tête / jouet en bois                 */
+    /* bois_03.jpg = Luminaire ou objet décoratif               */
+    /* bois_04.jpg = Détail d'assemblage / finition             */
+    detail:"Série de projets personnels allant du casse-tête en bois au luminaire artisanal. Certains projets sont issus de cours de design industriel.",
+    context:"Ces projets sont nés d'une curiosité pour le travail du bois et la mécanique des assemblages. Ils m'ont appris à penser en 3D, à anticiper les contraintes de fabrication et à soigner les finitions. ",
+    tools:["Travail du bois","Travail manuel","Design"] },
+
+  { id:"programmation", tag:"Site web · Programmation", title:"Création de site web",
+    desc:"Conception et programmation de site web à l'image de ce portfolio personnalisé.",
+    images:["web_01.jpg"],
+    /* web_01.jpg = Vue d'ensemble des objets réalisés         */
+    detail:"Co-developpé à l'aide de modèle IA, développement de site web codé en language html.",
+    context:"Ce projet est né d'une volonté de simplifier et de rendre plus visuels la communication vis à vis de mon portfolio dans le cadre de ma recherche d'emploi. Dans un second temps, ce projet m'a permis d'améliorer ma compétence en programmation et nottament en compréhension du language html.",
+    tools:["Programmation","html","Design"] }
+];
+
+/* ================================================================
+   LOGIQUE – ne pas modifier en dessous
+   ================================================================ */
+
+function renderExpList(data, listId, detailId) {
+  var listEl = document.getElementById(listId);
+  var detailEl = document.getElementById(detailId);
+  listEl.innerHTML = '';
+  detailEl.innerHTML = '';
+  for (var i = 0; i < data.length; i++) {
+    (function(exp, idx) {
+      var item = document.createElement('div');
+      item.className = 'exp-item' + (idx === 0 ? ' active' : '');
+      item.innerHTML = '<div class="exp-item-year">' + exp.periode + '</div><div class="exp-item-title">' + exp.poste + '</div><div class="exp-item-company">' + exp.entreprise + '</div>';
+      item.onclick = function() {
+        listEl.querySelectorAll('.exp-item').forEach(function(el){ el.classList.remove('active'); });
+        item.classList.add('active');
+        detailEl.querySelectorAll('.exp-detail').forEach(function(el){ el.classList.remove('active'); });
+        var d = document.getElementById('det-' + exp.id);
+        if (d) d.classList.add('active');
+      };
+      listEl.appendChild(item);
+      var mis = exp.missions.map(function(m){ return '<li>' + m + '</li>'; }).join('');
+      var det = document.createElement('div');
+      det.className = 'exp-detail' + (idx === 0 ? ' active' : '');
+      det.id = 'det-' + exp.id;
+      det.innerHTML = '<div class="exp-detail-year">' + exp.periode + '</div><div class="exp-detail-title">' + exp.poste + '</div><div class="exp-detail-company">' + exp.entreprise + '</div><div class="exp-detail-body"><p>' + exp.description + '</p><ul class="exp-detail-missions">' + mis + '</ul></div>';
+      detailEl.appendChild(det);
+    })(data[i], i);
+  }
+}
+
+renderExpList(EXPERIENCES_PRO, 'exp-list-pro', 'exp-detail-pro');
+renderExpList(EXPERIENCES_EDU, 'exp-list-edu', 'exp-detail-edu');
+
+document.querySelectorAll('.exp-tab').forEach(function(tab) {
+  tab.onclick = function() {
+    document.querySelectorAll('.exp-tab').forEach(function(t){ t.classList.remove('active'); });
+    tab.classList.add('active');
+    var w = tab.dataset.tab;
+    document.getElementById('tab-pro').style.display = w === 'pro' ? 'grid' : 'none';
+    document.getElementById('tab-edu').style.display = w === 'edu' ? 'grid' : 'none';
+  };
+});
+
+var cont = document.getElementById('projects-container');
+for (var pi = 0; pi < PROJECTS.length; pi++) {
+  (function(p) {
+    var card = document.createElement('div');
+    card.className = 'project-card';
+    var fi = p.images && p.images.length ? p.images[0] : null;
+    var th = fi ? '<img src="' + fi + '" alt="' + p.title + '">' : '<div class="project-thumb-placeholder"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Ajoutez une photo</span></div>';
+    card.innerHTML = '<div class="project-thumb">' + th + '</div><div class="project-card-body"><div class="project-card-tag">' + p.tag + '</div><div class="project-card-title">' + p.title + '</div><div class="project-card-desc">' + p.desc + '</div></div><div class="project-card-footer">En savoir plus &#8594;</div>';
+    card.onclick = function(){ openModal(p); };
+    cont.appendChild(card);
+  })(PROJECTS[pi]);
+}
+
+var isDragging = false, dragStartX, dragScrollLeft;
+cont.addEventListener('mousedown', function(e){ isDragging=true; cont.style.cursor='grabbing'; dragStartX=e.pageX-cont.offsetLeft; dragScrollLeft=cont.scrollLeft; });
+cont.addEventListener('mouseleave', function(){ isDragging=false; cont.style.cursor='grab'; });
+cont.addEventListener('mouseup', function(){ isDragging=false; cont.style.cursor='grab'; });
+cont.addEventListener('mousemove', function(e){ if(!isDragging) return; e.preventDefault(); cont.scrollLeft = dragScrollLeft - (e.pageX - cont.offsetLeft - dragStartX)*1.5; });
+
+var gIndex = 0;
+var gImages = [];
+
+window.goToSlide = function(idx) {
+  gIndex = idx;
+  var img = document.getElementById('gMainImg');
+  var ctr = document.getElementById('gCounter');
+  if (img) img.src = gImages[idx];
+  if (ctr) ctr.textContent = (idx+1) + ' / ' + gImages.length;
+  document.querySelectorAll('.gallery-thumb').forEach(function(t,i){ t.classList.toggle('active', i===idx); });
+};
+
+window.changeSlide = function(dir) {
+  goToSlide((gIndex + dir + gImages.length) % gImages.length);
+};
+
+function buildGallery(images, title) {
+  gImages = images || [];
+  gIndex = 0;
+  if (!gImages.length) {
+    return '<div class="gallery-wrap"><div class="gallery-main"><div class="gallery-placeholder"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Ajoutez vos photos dans images[]</span></div></div></div>';
+  }
+  var many = gImages.length > 1;
+  var nav = many ? '<button class="gallery-nav prev" onclick="changeSlide(-1)">&#8249;</button><button class="gallery-nav next" onclick="changeSlide(1)">&#8250;</button><div class="gallery-counter" id="gCounter">1 / ' + gImages.length + '</div>' : '';
+  var thumbs = '';
+  if (many) {
+    thumbs = '<div class="gallery-thumbs">';
+    for (var i=0; i<gImages.length; i++) {
+      thumbs += '<div class="gallery-thumb' + (i===0?' active':'') + '" onclick="goToSlide('+i+')"><img src="' + gImages[i] + '" alt="'+title+' '+(i+1)+'"></div>';
+    }
+    thumbs += '</div>';
+  }
+  return '<div class="gallery-wrap"><div class="gallery-main"><img id="gMainImg" src="' + gImages[0] + '" alt="' + title + '">' + nav + '</div>' + thumbs + '</div>';
+}
+
+function openModal(p) {
+  document.getElementById('modal-title').textContent = p.title;
+  var tags = p.tools.map(function(t){ return '<span class="modal-tag">'+t+'</span>'; }).join('');
+  document.getElementById('modal-body').innerHTML = buildGallery(p.images, p.title) + '<div class="modal-section"><h4>Description</h4><p>'+p.detail+'</p></div><div class="modal-section"><h4>Contexte et approche</h4><p>'+p.context+'</p></div><div class="modal-tags">'+tags+'</div>';
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('modal-close').onclick = closeModal;
+document.getElementById('modal-overlay').onclick = function(e){ if(e.target===this) closeModal(); };
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+function closeModal(){ document.getElementById('modal-overlay').classList.remove('open'); document.body.style.overflow=''; }
+
+document.getElementById('contact-form').onsubmit = function(e) {
+  e.preventDefault();
+  var name = document.getElementById('fname').value;
+  var subj = document.getElementById('fsubject').value || 'Message depuis le portfolio';
+  var msg  = document.getElementById('fmessage').value;
+  window.location.href = 'mailto:antymathis@gmail.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent('Bonjour Mathis,\n\n' + msg + '\n\nCordialement,\n' + name);
+  var fb = document.getElementById('form-feedback');
+  fb.textContent = 'Ouverture de votre client mail...';
+  fb.style.display = 'block';
+};
+</script>
+</body>
+</html>
