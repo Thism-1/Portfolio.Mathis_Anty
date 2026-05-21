@@ -69,7 +69,30 @@
   .exp-tab { padding: 10px 28px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; border: none; background: transparent; cursor: pointer; color: var(--color-muted); transition: background 0.2s, color 0.2s; font-family: var(--font-body); }
   .exp-tab.active { background: var(--color-accent); color: #fff; }
   .exp-layout { display: grid; grid-template-columns: 280px 1fr; border: 1.5px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; background: var(--color-surface); min-height: 420px; }
-  .exp-list { border-right: 1.5px solid var(--color-border); }
+  .exp-list {
+  border-right: 1.5px solid var(--color-border);
+  /* Limite la hauteur pour afficher ~4 expériences */
+  max-height: 420px;
+  /* Active le scroll vertical */
+  overflow-y: auto;
+  /* Empêche le scroll horizontal */
+  overflow-x: hidden;
+}
+/* Scrollbar moderne */
+.exp-list::-webkit-scrollbar {
+  width: 5px;
+}
+.exp-list::-webkit-scrollbar-track {
+  background: var(--color-border);
+  border-radius: 10px;
+}
+.exp-list::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 10px;
+}
+.exp-list::-webkit-scrollbar-thumb:hover {
+  background: #1e4a8a;
+}
   .exp-item { padding: 18px 22px; border-bottom: 1px solid var(--color-border); cursor: pointer; transition: background 0.15s; position: relative; }
   .exp-item:last-child { border-bottom: none; }
   .exp-item:hover { background: var(--color-accent-light); }
