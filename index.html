@@ -410,6 +410,14 @@ var EXPERIENCES_EDU = [
    Supprimez les lignes des photos que vous n'avez pas encore.
    ================================================================ */
 var PROJECTS = [
+  { id:"gravel", tag:"Projet personnel en cours ...", title:"Cadre de gravel en acier",
+    desc:"Fabrication artisanale d'un cadre de gravel en acier, de la conception CAO à l'assemblage par soudure.",
+    images:["gravel_01.jpg"],
+    /* gravel_01.jpg = Modèle CAO */
+    detail:"Projet personnel en cours : concevoir et fabriquer intégralement un cadre de vélo gravel en acier Reynolds. Chaque pièce est modélisée en CAO avant d'être débitée, ajustée et soudée à la main.",
+    context:"Ce projet illustre ma polyvalence entre la conception assistée et le travail manuel. Il m'a permis d'approfondir mes connaissances en géométrie de cadre, en métallurgie et en techniques de soudure TIG.",
+    tools:["Fusion 360","Soudure TIG","Découpe métal","Meulage","Conception géométrie vélo"] },
+
   { id:"bancs", tag:"R&D · Tests", title:"Bancs de test",
     desc:"Développement et fabrication de bancs d'essai pour pièces de vélo haute performance pour l'entreprise Nova Ride.",
     images:["bancs_01.jpg","bancs_02.jpg","bancs_03.jpg","bancs_04.jpg"],
@@ -420,6 +428,16 @@ var PROJECTS = [
     detail:"Dans le cadre d'un stage ingénieur, je suis intervenu chez Nova Ride, entreprise spécialisée dans la conception de composants de vélo haute performance. Intégré au bureau d'étude, j'ai eu pour mission de développer 4 bancs de test visant à accélérer le processus de validation produits de l'entreprise.",
     context:"Mission en totale autonomie : de la rédaction du cahier des charges à la fabrication, en passant par la modélisation 3D et la gestion du budget alloué.",
     tools:["SolidWorks","Fusion 360","Gestion de budget","Fabrication","Cahier des charges"] },
+
+  { id:"Vapor Blasting", tag:"Conception · Réparation", title:"Conception d'une cabine de vapor blasting",
+    desc:"Conception et fabrication d'une machine de vapor blasting pour le nettoyage et l'entretien, entre autre, de carter moteur.",
+    images:["vapor_blast_01.jpg","vapor_blast_02.jpg","vapor_blast_03.jpg"],
+    /* vapor_blast_01.jpg = Vue d'ensemble de l'étuve terminée        */
+    /* vapor_blast_02.jpg = Détail intérieur / système de chauffage   */
+    /* vapor_blast_03.jpg = Carte Arduino / partie automatisation     */
+    detail:"Projet réalisé avec des amis sur notre temps personnel. Objectif : fabriquer une machine de vapor blasting permettant le nettoyage de pièce mécanique telles que des carters moteur.",
+    context:"Ce projet s’inscrit dans une démarche globale d’amélioration des procédés de réparation et d’entretien de deux-roues, activité que je pratique régulièrement à travers la restauration notamment de mobylettes et de motos.",
+    tools:["Soudure","Travail du métal","Mécanique moto", "Restauration"] },
 
   { id:"machine_spéciale", tag:"R&D · machine spéciale", title:"Monte charge",
     desc:"Développement complet de bancs d'essai pour valider la résistance et les performances de composants de vélo haut de gamme.",
@@ -440,24 +458,6 @@ var PROJECTS = [
     detail:"Projet réalisé en 2025 chez l'Atelier GRACZ. Objectif : concevoir une étuve capable de sécher des planches de bois de grandes dimensions, en étant autonome énergétiquement (récupération de chaleur + automatisation).",
     context:"Le projet a démarré d'un besoin terrain identifié par le chef d'atelier. Après une phase d'analyse des besoins, j'ai proposé un protocole de séchage progressif intégrant un système de contrôle de température et d'humidité via Arduino.",
     tools:["SolidWorks","Arduino","Soudure","Travail du métal","Automatisation"] },
-
-  { id:"Vapor Blasting", tag:"Conception · Réparation", title:"Conception d'une cabine de vapor blasting",
-    desc:"Conception et fabrication d'une machine de vapor blasting pour le nettoyage et l'entretien, entre autre, de carter moteur.",
-    images:["vapor_blast_01.jpg","vapor_blast_02.jpg","vapor_blast_03.jpg"],
-    /* vapor_blast_01.jpg = Vue d'ensemble de l'étuve terminée        */
-    /* vapor_blast_02.jpg = Détail intérieur / système de chauffage   */
-    /* vapor_blast_03.jpg = Carte Arduino / partie automatisation     */
-    detail:"Projet réalisé avec des amis sur notre temps personnel. Objectif : fabriquer une machine de vapor blasting permettant le nettoyage de pièce mécanique telles que des carters moteur.",
-    context:"Ce projet s’inscrit dans une démarche globale d’amélioration des procédés de réparation et d’entretien de deux-roues, activité que je pratique régulièrement à travers la restauration notamment de mobylettes et de motos.",
-    tools:["Soudure","Travail du métal","Mécanique moto", "Restauration"] },
-
-  { id:"gravel", tag:"Projet personnel en cours ...", title:"Cadre de gravel en acier",
-    desc:"Fabrication artisanale d'un cadre de gravel en acier, de la conception CAO à l'assemblage par soudure.",
-    images:["gravel_01.jpg"],
-    /* gravel_01.jpg = Modèle CAO */
-    detail:"Projet personnel en cours : concevoir et fabriquer intégralement un cadre de vélo gravel en acier Reynolds. Chaque pièce est modélisée en CAO avant d'être débitée, ajustée et soudée à la main.",
-    context:"Ce projet illustre ma polyvalence entre la conception assistée et le travail manuel. Il m'a permis d'approfondir mes connaissances en géométrie de cadre, en métallurgie et en techniques de soudure TIG.",
-    tools:["Fusion 360","Soudure TIG","Découpe métal","Meulage","Conception géométrie vélo"] },
 
   { id:"jeux", tag:"Design · Artisanat", title:"Jeux et objets en bois",
     desc:"Conception et fabrication de casse-têtes, luminaires et objets décoratifs en bois, souvent sans colle ni vis.",
